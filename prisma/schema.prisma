@@ -7,7 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Plante {
   id          Int      @id @default(autoincrement())
   name        String
@@ -16,4 +15,20 @@ model Plante {
   addedDate   DateTime @default(now())
   isActive    Boolean  @default(true)
   imageUrl    String?
+}
+
+model User {
+  id          Int       @id @default(autoincrement())
+  email       String    @unique
+  password    String
+  displayName String
+ roles       Role[]    @default([USER]) 
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  lastLogin   DateTime?
+}
+
+enum Role {
+  USER
+  ADMIN
 }
